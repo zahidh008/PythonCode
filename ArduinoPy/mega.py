@@ -27,15 +27,24 @@ import json
 #Read data from sensors
 
 
-
-
-
+alarm = """
+{
+    "sun": ["05:40","05:50"],
+    "mon": ["05:40","05:50"],
+    "tue": ["05:40","05:50"],
+    "wed": ["05:40","05:50"],
+    "thr": ["05:40","05:50"]
+    }
+"""
+alarm = json.loads(alarm)
 
 
 #Routine
 #Morning
 #Alarm based on the day
-
+entry = {'carl': 33}
+alarm['sun'].append(entry)
+print(alarm)
 print("Alarm ringing")
 
 
