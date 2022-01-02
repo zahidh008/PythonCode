@@ -16,6 +16,7 @@ import json
 
 #Read data form GSM
 #call and sms
+receivedsms = ""
 
 
 
