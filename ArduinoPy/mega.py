@@ -65,8 +65,7 @@ for a in textcomands:
 alarm ={
     "5:40": {
         "day": ["sun", "mon", "tue", "wed", "thr"],
-        "reapet": True,
-        "snooz": 5
+        "reapet": True
     }
     }
 
@@ -75,7 +74,7 @@ alarm ={
 #Routine
 #Morning
 #Alarm based on the day
-entry = {"05:50":{"day": "sun"}}
+entry = {"05:50":{"day": ["sun"], "reapet": True, "snooze": 5}}
 alarm.update(entry)
 print(alarm)
 print("Alarm ringing")
