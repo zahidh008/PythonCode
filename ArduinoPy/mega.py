@@ -62,23 +62,21 @@ for a in textcomands:
 #Read data from sensors
 
 
-alarm = """
-{
-    "sun": ["05:40","05:50"],
-    "mon": ["05:40","05:50"],
-    "tue": ["05:40","05:50"],
-    "wed": ["05:40","05:50"],
-    "thr": ["05:40","05:50"]
+alarm ={
+    "5:40": {
+        "day": ["sun", "mon", "tue", "wed", "thr"],
+        "reapet": True,
+        "snooz": 5
     }
-"""
-alarm = json.loads(alarm)
+    }
 
+#alarm = json.loads(alarm)
 
 #Routine
 #Morning
 #Alarm based on the day
-entry = {'carl': 33}
-alarm['sun'].append(entry)
+entry = {"05:50":{"day": "sun"}}
+alarm.update(entry)
 print(alarm)
 print("Alarm ringing")
 
