@@ -17,7 +17,7 @@ import json
 #Read data form GSM
 #call and sms
 textcomands = ["show command", "status", "led on", "led off", "fan on", "fan off"]
-text = ["show command", "status", "led on", "led off"]
+
 receivedsms = "show all command"
 receivedsms = receivedsms.lower()
 
