@@ -20,7 +20,7 @@ textcomands = ["show command", "status", "led on", "led off", "fan on", "fan off
 
 receivedsms = "show all command"
 receivedsms = receivedsms.lower()
-
+"""
 for a in textcomands:
     b = a.split(' ')
     for c in b:
@@ -46,7 +46,7 @@ for a in textcomands:
             print("fan on")
         elif a == "fan off":
             print("fan off")
-        
+"""      
         
 
 
@@ -61,17 +61,36 @@ for a in textcomands:
 
 #Read data from sensors
 
+timenow = [5,55]
+events ={
+    "5:40": {
+        "alarm": True},
+    "8:40": {
+        "alarm": False},
+    "10:40": {
+        "alarm": True}
+    
+    }
 
-
-
-
-
+#alarm = json.loads(alarm)
 
 #Routine
 #Morning
 #Alarm based on the day
+print("\n\n\n")
+#while True:
+for event in events:
+    eventtime = []
+    eventtime.append(int(event.split(':')[0]))
+    eventtime.append(int(event.split(':')[1]))
+    if timenow > eventtime:
+        print(event)
+        if 'alarm' in events[event]:
+            print("Alarm ringing")
 
-print("Alarm ringing")
+    # print(events[event])
+print("\n\n\n")
+# 
 
 
 
