@@ -1,11 +1,16 @@
+from itertools import count
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 # from selenium.webdriver.common.by import By
 # from selenium.webdriver.support import expected_conditions as EC
 # from selenium.webdriver.support.wait import WebDriverWait
-# import os
+import os
 import pickle
 import time
+import wget
+import numpy
+from numpy import savetxt
+# import pandas
 # import scrapy
 
 # from selenium.webdriver.remote.webelement import WebElement
@@ -13,7 +18,7 @@ import time
 
 driver=webdriver.Chrome()
 
-def login():
+def fblogin():
     driver.get("https://www.facebook.com/login")
     #driver.manage().window().maximize()
 
@@ -34,7 +39,7 @@ def login():
     driver.find_element_by_name("login").click()
     time.sleep(2)
 
-def login2():
+def fblogin2():
     driver.get("https://www.facebook.com")
     time.sleep(2)
     cookies = pickle.load(open("cookies.pkl", "rb"))
@@ -43,13 +48,151 @@ def login2():
     time.sleep(2)
     driver.get("https://www.facebook.com")
 
+def instalogin():
+    driver.get("https://www.instagram.com/accounts/login/")
+    time.sleep(2)
+    username = driver.find_element_by_name("username")
+    password = driver.find_element_by_name('password')
+
+    username.clear()
+    username.send_keys("Tanha632031")
+
+    password.clear()
+    password.send_keys("632031")
+
+    time.sleep(2)
+    button = driver.find_element_by_xpath("//button[@type='submit']")
+    button.click()
+    time.sleep(2)
+
+def instalogin2():
+    driver.get("https://www.instagram.com/")
+    time.sleep(2)
+    cookies = pickle.load(open("cookies.pkl", "rb"))
+    for cookie in cookies:
+        driver.add_cookie(cookie)
+    time.sleep(2)
+    driver.get("https://www.instagram.com/")
 # login()
-login2()
+# login2()
+# instalogin()
+instalogin2()
+print("Login completed")
+time.sleep(2)
+accounturl = "https://www.instagram.com/efl_ana/"
+driver.get(accounturl)
+
+# Get scroll height
+last_height = driver.execute_script("return document.body.scrollHeight")
+
+tryscrl = 0
+imgsinglink = []
+# for a in range(2):
+while True:
+    imgs = driver.find_elements_by_class_name("_bz0w")
+    for a in imgs:
+        uniqlink = a.find_element_by_tag_name('a').get_attribute('href')
+        if uniqlink not in imgsinglink:
+            imgsinglink.append(uniqlink)
+        # print(len(imgs))
+
+    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+    time.sleep(1)
+
+    new_height = driver.execute_script("return document.body.scrollHeight")
+
+    if new_height == last_height:
+        tryscrl += 1
+    else:
+        tryscrl = 0
+
+    
+
+    print("\n\n\n\nAll img links")
+    print(len(imgsinglink))
+    # print(new_height)
+    # print(last_height)
+    last_height = new_height
+    
+    if len(imgsinglink) >= 2035:
+        break
+
+print(imgsinglink)
+
+
+# a_file = open("F:\Python/test.txt", "w")
+# for row in imgsinglink:
+#     savetxt(a_file, row)
+
+# a_file.close()
+
+# savetxt(path + '/myfile.csv', imgsinglink, delimiter=',')
+# imgsinglink.tofile(path + '/data2.csv', sep = ',')
+
+# imgs = driver.find_elements_by_class_name("_bz0w")
+# imgsinglink = []
+# for a in imgs:
+#     imgsinglink.append(a.find_element_by_tag_name('a').get_attribute('href'))
+
+count = 0
+for a in imgsinglink:   
+    driver.get(a)
+    time.sleep(2)
+    imglink = driver.find_element_by_class_name("_97aPb").find_element_by_tag_name('img').get_attribute('src')
+    # print(imglink)
+
+    path = "F:\Python\Instapic"
+    # print(path)
+    save_as = os.path.join(path, 'image_' + str(count) + '.jpg')
+    wget.download(imglink, save_as)
+    time.sleep(1)
+    count += 1
+
+
+
+
+
+
+
+
+
+
+# for a in imglink:
+#     print("Imglink = ")
+#     print(a.get_attribute('innerHTML'))
+#     print(a.get_attribute('src'))
+# print(imglink.get_attribute('innerHTML'))
+# imglink= imglink.get_attribute("src")
+
+
+# path = os.getcwd()
+# path = os.path.join(path, "InstaPic")
+# os.mkdir(path)
+
+# print("\nPath =")
+# print(path)
+
+
+# path = "F:\Python\Instapic"
+# print(path)
+# save_as = os.path.join(path, 'images.jpg')
+# wget.download(imglink, save_as)
+
+# counter = 0
+# for image in images:
+#     save_as = os.path.join(path, str(counter) + '.jpg')
+#     wget.download(image, save_as)
+# #     counter += 1
 
 # grplink = "https://www.facebook.com/groups/286787079879268"
-grplink = "https://www.facebook.com/groups/easyenglishclub"
-driver.get(grplink)
-time.sleep(5)
+# grplink = "https://www.facebook.com/groups/easyenglishclub"
+
+
+
+# loginbtn = driver.find_element_by_tag_name("button")
+# print(loginbtn.get_attribute('innerHTML'))
+
+# time.sleep(5)
 
 
 
