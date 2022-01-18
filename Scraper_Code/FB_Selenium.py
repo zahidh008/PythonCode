@@ -72,29 +72,75 @@ def instalogin2():
     for cookie in cookies:
         driver.add_cookie(cookie)
     time.sleep(2)
-    driver.get("https://www.instagram.com/")
+    # driver.get("https://www.instagram.com/")
 # login()
 # login2()
 # instalogin()
 instalogin2()
 print("Login completed")
 time.sleep(2)
-accounturl = "https://www.instagram.com/efl_ana/"
+# accounturl = "https://www.instagram.com/efl_ana/"
+accounturl = "https://www.instagram.com/therealpurnima/"
 driver.get(accounturl)
 
-# Get scroll height
+def imgdownload():
+    last_height = driver.execute_script("return document.body.scrollHeight")
+
+    tryscrl = 0
+    imgsinglink = []
+    # for a in range(2):
+    while True:
+        imgs = driver.find_elements_by_class_name("_bz0w")
+        for a in imgs:
+            uniqlink = a.find_element_by_tag_name('a').get_attribute('href')
+            if uniqlink not in imgsinglink:
+                imgsinglink.append(uniqlink)
+            # print(len(imgs))
+
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(1)
+
+        new_height = driver.execute_script("return document.body.scrollHeight")
+
+        if new_height == last_height:
+            tryscrl += 1
+            print("Try = " + str(tryscrl))
+        else:
+            tryscrl = 0
+
+        print("\n\n\n\nAll img links")
+        print(len(imgsinglink))
+        print(new_height)
+        print(last_height)
+        last_height = new_height
+
+        if tryscrl >= 5:
+            break
+
+    print(imgsinglink)
+
+    count = 0
+    for a in imgsinglink:   
+        driver.get(a)
+        time.sleep(2)
+        imglink = driver.find_element_by_class_name("_97aPb").find_element_by_tag_name('img').get_attribute('src')
+        # print(imglink)
+
+        path = "F:\Python\Instapic"
+        # print(path)
+        save_as = os.path.join(path, 'image_' + str(count) + '.jpg')
+        wget.download(imglink, save_as)
+        time.sleep(1)
+        count += 1
+
+path = "F:\Python\Instapic"
+
 last_height = driver.execute_script("return document.body.scrollHeight")
 
 tryscrl = 0
-imgsinglink = []
-# for a in range(2):
+
 while True:
-    imgs = driver.find_elements_by_class_name("_bz0w")
-    for a in imgs:
-        uniqlink = a.find_element_by_tag_name('a').get_attribute('href')
-        if uniqlink not in imgsinglink:
-            imgsinglink.append(uniqlink)
-        # print(len(imgs))
+    
 
     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
     time.sleep(1)
@@ -103,22 +149,27 @@ while True:
 
     if new_height == last_height:
         tryscrl += 1
+        print("Try = " + str(tryscrl))
     else:
         tryscrl = 0
 
-    
-
-    print("\n\n\n\nAll img links")
-    print(len(imgsinglink))
-    # print(new_height)
-    # print(last_height)
     last_height = new_height
-    
-    if len(imgsinglink) >= 2035:
+
+    if tryscrl >= 5:
         break
 
-print(imgsinglink)
-
+imgs = driver.find_elements_by_class_name("_bz0w")
+numbr = 0
+for a in imgs:
+    a.click()
+    time.sleep(5)
+    imglink = driver.find_element_by_class_name("_97aPb").find_element_by_tag_name('img').get_attribute('src')
+    save_as = os.path.join(path, 'image_' + str(numbr) + '.jpg')
+    wget.download(imglink, save_as)
+    time.sleep(1)
+    driver.find_element_by_class_name("NOTWr").click()
+    time.sleep(5)
+    numbr += 1
 
 # a_file = open("F:\Python/test.txt", "w")
 # for row in imgsinglink:
@@ -134,19 +185,6 @@ print(imgsinglink)
 # for a in imgs:
 #     imgsinglink.append(a.find_element_by_tag_name('a').get_attribute('href'))
 
-count = 0
-for a in imgsinglink:   
-    driver.get(a)
-    time.sleep(2)
-    imglink = driver.find_element_by_class_name("_97aPb").find_element_by_tag_name('img').get_attribute('src')
-    # print(imglink)
-
-    path = "F:\Python\Instapic"
-    # print(path)
-    save_as = os.path.join(path, 'image_' + str(count) + '.jpg')
-    wget.download(imglink, save_as)
-    time.sleep(1)
-    count += 1
 
 
 
