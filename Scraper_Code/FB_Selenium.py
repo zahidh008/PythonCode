@@ -34,29 +34,35 @@ def login():
     driver.find_element_by_name("login").click()
     time.sleep(2)
 
-driver.get("https://www.facebook.com")
-time.sleep(2)
-cookies = pickle.load(open("cookies.pkl", "rb"))
-for cookie in cookies:
-    driver.add_cookie(cookie)
-time.sleep(2)
-driver.get("https://www.facebook.com")
+def login2():
+    driver.get("https://www.facebook.com")
+    time.sleep(2)
+    cookies = pickle.load(open("cookies.pkl", "rb"))
+    for cookie in cookies:
+        driver.add_cookie(cookie)
+    time.sleep(2)
+    driver.get("https://www.facebook.com")
 
-#login()
+# login()
+login2()
 
-grplink = "https://www.facebook.com/groups/286787079879268"
+# grplink = "https://www.facebook.com/groups/286787079879268"
+grplink = "https://www.facebook.com/groups/easyenglishclub"
 driver.get(grplink)
 time.sleep(5)
-creatpostspans = driver.find_elements_by_xpath("//body//span")
-count = 0
-for a in creatpostspans:
-    count = count+1
-    txt = a.get_attribute('innerHTML')
-    if txt.find('Write something') != -1:
-        creatpostspan = a
-        break
-print(creatpostspan)
-creatpostspan.click()
+
+
+
+# creatpostspans = driver.find_elements_by_xpath("//body//span")
+# count = 0
+# for a in creatpostspans:
+#     count = count+1
+#     txt = a.get_attribute('innerHTML')
+#     if txt.find('Write something') != -1:
+#         creatpostspan = a
+#         break
+# print(creatpostspan)
+# creatpostspan.click()
 
 
 
