@@ -10,7 +10,7 @@ import time
 import wget
 import numpy
 from numpy import savetxt
-# import pandas
+import pandas
 # import scrapy
 
 # from selenium.webdriver.remote.webelement import WebElement
@@ -73,15 +73,16 @@ def instalogin2():
         driver.add_cookie(cookie)
     time.sleep(2)
     # driver.get("https://www.instagram.com/")
-# login()
+fblogin()
 # login2()
 # instalogin()
-instalogin2()
+# instalogin()
 print("Login completed")
 time.sleep(2)
 # accounturl = "https://www.instagram.com/efl_ana/"
-accounturl = "https://www.instagram.com/therealpurnima/"
-driver.get(accounturl)
+# accounturl = "https://www.instagram.com/therealpurnima/"
+groupurl = "https://www.facebook.com/groups/easyenglishclub/media"
+driver.get(groupurl)
 
 def imgdownload():
     last_height = driver.execute_script("return document.body.scrollHeight")
@@ -133,43 +134,71 @@ def imgdownload():
         time.sleep(1)
         count += 1
 
-path = "F:\Python\Instapic"
+path = "K:\temp"
 
-last_height = driver.execute_script("return document.body.scrollHeight")
+# allsmlimgs = []
+# smlimgs = driver.find_elements_by_class_name("_bz0w")
+# mainimglinks = []
+# for a in smlimgs:
+#     if a not in allsmlimgs:
+#         checknew = 0
+#         allsmlimgs.append(a)
+#         a.click()
+#         time.sleep(5)
+#         mainimglink = driver.find_element_by_class_name("_97aPb").find_element_by_tag_name('img').get_attribute('src')
+#         if mainimglink not in mainimglinks:
+#             mainimglinks.append(mainimglink)
+#         driver.find_element_by_class_name("NOTWr").click()
+#         time.sleep(5)
 
-tryscrl = 0
+# print(len(mainimglinks))
 
-while True:
+
+
+
+
+
+
+
+
+
+
+
+# last_height = driver.execute_script("return document.body.scrollHeight")
+
+# tryscrl = 0
+
+# while True:
     
 
-    driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-    time.sleep(1)
+#     driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+#     time.sleep(1)
 
-    new_height = driver.execute_script("return document.body.scrollHeight")
+#     new_height = driver.execute_script("return document.body.scrollHeight")
 
-    if new_height == last_height:
-        tryscrl += 1
-        print("Try = " + str(tryscrl))
-    else:
-        tryscrl = 0
+#     if new_height == last_height:
+#         tryscrl += 1
+#         print("Try = " + str(tryscrl))
+#     else:
+#         tryscrl = 0
 
-    last_height = new_height
+#     last_height = new_height
 
-    if tryscrl >= 5:
-        break
+#     if tryscrl >= 5:
+#         break
 
-imgs = driver.find_elements_by_class_name("_bz0w")
-numbr = 0
-for a in imgs:
-    a.click()
-    time.sleep(5)
-    imglink = driver.find_element_by_class_name("_97aPb").find_element_by_tag_name('img').get_attribute('src')
-    save_as = os.path.join(path, 'image_' + str(numbr) + '.jpg')
-    wget.download(imglink, save_as)
-    time.sleep(1)
-    driver.find_element_by_class_name("NOTWr").click()
-    time.sleep(5)
-    numbr += 1
+# imgs = driver.find_elements_by_class_name("_bz0w")
+# numbr = 0
+# for a in imgs:
+#     a.click()
+#     time.sleep(5)
+#     imglink = driver.find_element_by_class_name("_97aPb").find_element_by_tag_name('img').get_attribute('src')
+#     save_as = os.path.join(path, 'image_' + str(numbr) + '.jpg')
+#     wget.download(imglink, save_as)
+#     time.sleep(1)
+#     driver.find_element_by_class_name("NOTWr").click()
+#     time.sleep(5)
+#     numbr += 1
 
 # a_file = open("F:\Python/test.txt", "w")
 # for row in imgsinglink:
